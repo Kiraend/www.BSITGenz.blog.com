@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Events - Barkada Blog</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #003366; /* Light mode navy background */
+      color: white;
+      line-height: 1.6;
+      transition: 0.3s ease;
+    }
+    body.dark-mode { background-color: #121212; color: white; }
+
+    a { text-decoration: none; color: inherit; }
+
+    .site-container { display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* HEADER MATCHING HOME PAGE */
+    header {
+      background-color: #003366;
+      color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      transition: 0.3s ease;
+    }
+    header.dark-mode { background-color: #333; }
+
+    .header-logo-row {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .header-logo-row h1 { font-size: 2em; font-weight: 600; }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 12px 0;
+    }
+    nav ul li { margin: 0 15px; }
+    nav ul li a {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1.1em;
+      transition: 0.3s;
+      color: white;
+    }
+    /* Hover and Active Effect for nav links in light mode */
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #004c99; /* Slightly lighter navy blue on hover */
+    }
+
+    /* In dark mode, apply dark grey for nav links */
+    body.dark-mode nav ul li a {
+      background-color: transparent; /* Transparent in dark mode */
+      color: white;  /* Ensure visibility of text in dark mode */
+    }
+
+    /* Hover and Active Effect for nav links in dark mode */
+    body.dark-mode nav ul li a:hover,
+    body.dark-mode nav ul li a.active {
+      background-color: #555; /* Slightly lighter grey for hover and active */
+    }
+
+    /* MAIN CONTENT */
+    main { flex: 1; padding: 50px 20px; text-align: center; }
+    main h2 { font-size: 2.5em; margin-bottom: 30px; }
+
+    .container { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 25px; text-align: left; }
+
+    .event {
+      background-color: white; color: black; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: 0.3s ease;
+    }
+    .event.dark-mode { background-color: #333; color: white; }
+    .event h3 { color: #003366; margin-bottom: 10px; transition: 0.3s ease; }
+    .event.dark-mode h3 { color: #fff; }
+    .date { color: #777; margin-bottom: 10px; }
+
+    .rsvp-button {
+      background-color: #003366; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; font-size: 1.1em; transition: 0.3s ease;
+    }
+    .rsvp-button:hover { background-color: #00254d; }
+    .rsvp-button.dark-mode { background-color: #333; color: white; }
+    .rsvp-button.dark-mode:hover { background-color: #555; }
+
+    .confirmation-message { display: none; font-size: 1.1em; margin-top: 10px; color: #003366; }
+    .confirmation-message.dark-mode { color: #fff; }
+
+    footer { background-color: #000; color: white; text-align: center; padding: 20px 0; transition: 0.3s ease; }
+    footer.dark-mode { background-color: #222; }
+
+    .toggle-btn { 
+      position: fixed; 
+      top: 20px; 
+      right: 20px; 
+      padding: 10px 15px; 
+      background-color: #003366; 
+      color: white; 
+      border: none; 
+      border-radius: 25px; 
+      cursor: pointer; 
+      font-size: 16px; 
+      z-index: 9999;
+      transition: background-color 0.3s ease;
+    }
+    .toggle-btn:hover {
+      background-color: #004c99; /* Slightly lighter navy blue on hover */
+    }
+
+    body.dark-mode .toggle-btn {
+      background-color: #333; /* Dark grey background for button in dark mode */
+      color: white;
+    }
+    body.dark-mode .toggle-btn:hover {
+      background-color: #555; /* Lighter grey for hover in dark mode */
+    }
+
+    @media (max-width: 768px) { nav ul { flex-direction: column; gap: 15px; } .container { width: 90%; } }
+  </style>
+</head>
+<body>
+
+<div class="site-container">
+
+  <button class="toggle-btn" id="toggleMode">Switch to Dark Mode</button>
+
+  <!-- HEADER MATCHING HOME PAGE -->
+  <header>
+    <div class="header-logo-row">
+      <h1>Barkada Blog</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="gallery.html">Pictures</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Upcoming Events</h2>
+    <div class="container">
+      <div class="event">
+        <h3>Barkada Beach Day</h3>
+        <p class="date">Date: December 15, 2025</p>
+        <p>A whole day of swimming, beach volleyball, and chill vibes.</p>
+        <button class="rsvp-button" onclick="toggleConfirmation('event2')">RSVP Now</button>
+        <p id="event2" class="confirmation-message">✔ RSVP Confirmed!</p>
+      </div>
+
+      <div class="event">
+        <h3>New Year's Eve Potluck Party</h3>
+        <p class="date">Date: December 31, 2025</p>
+        <p>Bring a dish and celebrate the new year with good music and friends!</p>
+        <button class="rsvp-button" onclick="toggleConfirmation('event3')">RSVP Now</button>
+        <p id="event3" class="confirmation-message">✔ RSVP Confirmed!</p>
+      </div>
+
+      <h2>Past Events</h2>
+
+      <div class="event">
+        <h3>Movie Marathon: Superhero Edition</h3>
+        <p class="date">Date: December 1, 2025</p>
+        <p>Join us for an all-day superhero movie marathon! Bring snacks and enjoy!</p>
+      </div>
+
+      <div class="event">
+        <h3>Barkada Game Night</h3>
+        <p class="date">Date: November 5, 2025</p>
+        <p>A fun night of board games, snacks, and laughter!</p>
+      </div>
+
+      <div class="event">
+        <h3>Team Building Hike</h3>
+        <p class="date">Date: October 20, 2025</p>
+        <p>We hiked the mountain and got amazing pictures along the trail.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Barkada Blog | All Rights Reserved</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleConfirmation(id) {
+    const msg = document.getElementById(id);
+    msg.style.display = msg.style.display === "block" ? "none" : "block";
+  }
+
+  const toggleBtn = document.getElementById("toggleMode");
+  const body = document.body;
+  const header = document.querySelector("header");
+  const nav = document.querySelector("nav");
+  const footer = document.querySelector("footer");
+  const eventCards = document.querySelectorAll(".event");
+  const rsvpBtns = document.querySelectorAll(".rsvp-button");
+  const confirmations = document.querySelectorAll(".confirmation-message");
+
+  function enableDarkMode() {
+    body.classList.add("dark-mode");
+    header.classList.add("dark-mode");
+    nav.classList.add("dark-mode");
+    footer.classList.add("dark-mode");
+    eventCards.forEach(card => card.classList.add("dark-mode"));
+    rsvpBtns.forEach(btn => btn.classList.add("dark-mode"));
+    confirmations.forEach(msg => msg.classList.add("dark-mode"));
+    toggleBtn.textContent = "Switch to Light Mode";
+    localStorage.setItem("darkMode", "enabled");
+  }
+
+  function disableDarkMode() {
+    body.classList.remove("dark-mode");
+    header.classList.remove("dark-mode");
+    nav.classList.remove("dark-mode");
+    footer.classList.remove("dark-mode");
+    eventCards.forEach(card => card.classList.remove("dark-mode"));
+    rsvpBtns.forEach(btn => btn.classList.remove("dark-mode"));
+    confirmations.forEach(msg => msg.classList.remove("dark-mode"));
+    toggleBtn.textContent = "Switch to Dark Mode";
+    localStorage.setItem("darkMode", "disabled");
+  }
+
+  if (localStorage.getItem("darkMode") === "enabled") enableDarkMode();
+
+  toggleBtn.onclick = () => {
+    if (body.classList.contains("dark-mode")) disableDarkMode();
+    else enableDarkMode();
+  };
+</script>
+
+</body>
+</html>

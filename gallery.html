@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pictures - Barkada Blog</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #003366; /* Light mode background */
+      color: white;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-mode { background-color: #121212; color: white; }
+
+    a { text-decoration: none; color: inherit; }
+
+    .site-container { display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* HEADER MATCHING HOME PAGE */
+    header {
+      background-color: #003366;
+      color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      transition: 0.3s;
+    }
+    header.dark-mode { background-color: #333; }
+
+    .header-logo-row {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .header-logo-row h1 { font-size: 2em; font-weight: 600; }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 12px 0;
+    }
+    nav ul li { margin: 0 15px; }
+    nav ul li a {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1.1em;
+      transition: 0.3s;
+      color: white;
+      text-decoration: none; /* remove underline */
+    }
+
+    /* Hover and Active Effect for nav links in light mode */
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #004c99; /* Slightly lighter navy blue on hover */
+    }
+
+    /* In dark mode, apply dark grey for nav links */
+    body.dark-mode nav ul li a {
+      background-color: transparent; /* Transparent in dark mode */
+      color: white;  /* Ensure visibility of text in dark mode */
+    }
+
+    /* Hover and Active Effect for nav links in dark mode */
+    body.dark-mode nav ul li a:hover,
+    body.dark-mode nav ul li a.active {
+      background-color: #555; /* Slightly lighter grey for hover and active */
+    }
+
+    /* MAIN CONTENT */
+    main { flex: 1; padding: 50px 20px; text-align: center; }
+    main h2 { font-size: 2.5em; margin-bottom: 30px; }
+
+    /* UPLOAD BUTTON */
+    .upload-container { display: flex; justify-content: center; margin-bottom: 40px; }
+    .upload-btn {
+      padding: 15px 40px;
+      background: #ffffff;
+      color: #003366;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: 600;
+      transition: 0.3s ease;
+      box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+    }
+    .upload-btn:hover { transform: scale(1.05); }
+    .upload-btn.dark-mode { background: #333; color: white; }
+
+    /* GALLERY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .gallery-item { 
+      background-color: white; 
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      text-align: center;
+      transition: 0.3s ease;
+      color: #003366; 
+    }
+    .gallery-item.dark-mode { background-color: #333; color: white; }
+
+    .gallery-image { width: 100%; height: auto; max-height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 12px; }
+    .gallery-item p { font-weight: bold; font-size: 1.1em; }
+    .remove-btn {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #e53935;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .remove-btn:hover { background: #c62828; }
+
+    /* FOOTER */
+    footer { background-color: #000; color: white; text-align: center; padding: 20px 0; transition: 0.3s ease; }
+    footer.dark-mode { background-color: #222; }
+
+    /* TOGGLE BUTTON */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background-color: #003366;
+      color: white; 
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 9999;
+      transition: background-color 0.3s ease;
+    }
+    /* Hover effect for Switch Mode button */
+    .toggle-btn:hover {
+      background-color: #004c99; /* Slightly lighter navy blue on hover */
+    }
+
+    body.dark-mode .toggle-btn {
+      background-color: #333; /* Dark grey background for button in dark mode */
+      color: white;
+    }
+    body.dark-mode .toggle-btn:hover {
+      background-color: #555; /* Lighter grey for hover in dark mode */
+    }
+
+    @media (max-width: 768px) { .gallery-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="site-container">
+
+  <!-- Dark Mode Toggle -->
+  <button class="toggle-btn" id="toggleMode">Switch to Dark Mode</button>
+
+  <!-- HEADER MATCHING HOME PAGE -->
+  <header>
+    <div class="header-logo-row">
+      <h1>Barkada Blog</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="gallery.html">Pictures</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Pictures</h2>
+
+    <div class="upload-container">
+      <button class="upload-btn" id="uploadBtn" onclick="document.getElementById('imageUpload').click()">Upload Photo</button>
+      <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <div class="gallery-item">
+        <img src="bYL9KyRN.jpeg" class="gallery-image">
+        <p contenteditable="true">Belio Sinangote</p>
+        <button class="remove-btn">Remove</button>
+      </div>
+
+      <div class="gallery-item">
+        <img src="FuTd4ROT.jpeg" class="gallery-image">
+        <p contenteditable="true">Jaylou Garcia</p>
+        <button class="remove-btn">Remove</button>
+      </div>
+
+      <div class="gallery-item">
+        <img src="R06o1HaW.jpeg" class="gallery-image">
+        <p contenteditable="true">Grant Gabriel Mahilum</p>
+        <button class="remove-btn">Remove</button>
+      </div>
+
+      <div class="gallery-item">
+        <img src="UxTMGeiU.jpeg" class="gallery-image">
+        <p contenteditable="true">John Lloid Tagalog</p>
+        <button class="remove-btn">Remove</button>
+      </div>
+
+      <div class="gallery-item">
+        <img src="wKuxVimA.jpeg" class="gallery-image">
+        <p contenteditable="true">James Lloyd Ruiz</p>
+        <button class="remove-btn">Remove</button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Barkada Blog | All Rights Reserved</p>
+  </footer>
+
+</div>
+
+<script>
+  const toggleBtn = document.getElementById("toggleMode");
+  const body = document.body;
+  const header = document.querySelector("header");
+  const footer = document.querySelector("footer");
+  const uploadBtn = document.getElementById("uploadBtn");
+  const galleryItems = document.querySelectorAll(".gallery-item");
+
+  if (localStorage.getItem("darkMode") === "enabled") enableDarkMode();
+
+  toggleBtn.onclick = () => {
+    body.classList.contains("dark-mode") ? disableDarkMode() : enableDarkMode();
+  };
+
+  function enableDarkMode() {
+    body.classList.add("dark-mode");
+    header.classList.add("dark-mode");
+    nav.classList.add("dark-mode");
+    footer.classList.add("dark-mode");
+    uploadBtn.classList.add("dark-mode");
+    galleryItems.forEach(item => item.classList.add("dark-mode"));
+    toggleBtn.textContent = "Switch to Light Mode";
+    localStorage.setItem("darkMode", "enabled");
+  }
+
+  function disableDarkMode() {
+    body.classList.remove("dark-mode");
+    header.classList.remove("dark-mode");
+    nav.classList.remove("dark-mode");
+    footer.classList.remove("dark-mode");
+    uploadBtn.classList.remove("dark-mode");
+    galleryItems.forEach(item => item.classList.remove("dark-mode"));
+    toggleBtn.textContent = "Switch to Dark Mode";
+    localStorage.setItem("darkMode", "disabled");
+  }
+
+  // Remove button
+  document.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      if(confirm("Are you sure you want to remove this image?")) e.target.parentElement.remove();
+    });
+  });
+</script>
+
+</body>
+</html>

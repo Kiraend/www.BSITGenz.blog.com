@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home - Barkada Blog</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #003366; /* Navy blue background for light mode */
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .site-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background-color: #003366; /* Navy blue background for light mode */
+      color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      padding: 10px;
+    }
+
+    .header-logo-row {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .header-logo-row h1 {
+      font-size: 2em;
+      font-weight: 600;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 12px 0;
+    }
+
+    nav ul li {
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1.1em;
+      transition: 0.3s ease;
+      color: white;
+      background-color: transparent; /* Make it transparent initially */
+    }
+
+    /* Hover effect for nav links in light mode */
+    nav ul li a:hover {
+      background-color: #004c99; /* Slightly lighter navy blue on hover */
+    }
+
+    /* Active state for nav links in light mode */
+    nav ul li a.active {
+      background-color: #003366; /* Navy blue background for active link */
+    }
+
+    /* In dark mode, apply dark grey for nav links */
+    body.dark-mode nav ul li a {
+      background-color: #333; /* Dark grey background in dark mode */
+      color: white;
+    }
+
+    /* Hover effect for nav links in dark mode */
+    body.dark-mode nav ul li a:hover {
+      background-color: #555; /* Slightly lighter grey on hover in dark mode */
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      padding: 50px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .intro-inner {
+      max-width: 750px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    .intro-inner h2 {
+      font-size: 2.5em;
+      margin-bottom: 25px;
+    }
+
+    .intro-inner p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .intro-inner .btn {
+      display: inline-block;
+      background-color: #fff;
+      color: #003366; /* Navy blue for button text */
+      padding: 12px 35px;
+      border-radius: 50px;
+      font-size: 1.1em;
+      font-weight: 600;
+      transition: 0.3s ease;
+      margin-top: 30px;
+    }
+
+    .intro-inner .btn:hover {
+      background-color: #ffe0d6;
+    }
+
+    /* DASHBOARD */
+    .dashboard {
+      margin-top: 50px;
+      padding: 30px 20px;
+    }
+
+    .dashboard h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .dash-card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      color: #003366; /* Navy blue text */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .dash-card:hover {
+      transform: translateY(-6px);
+      background: #ffe7dc;
+    }
+
+    .dash-card h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+
+    /* DARK MODE STYLES */
+    body.dark-mode {
+      background-color: #121212; /* Dark background */
+      color: #fff;
+    }
+
+    header.dark-mode {
+      background-color: #333; /* Dark header */
+    }
+
+    .intro-inner.dark-mode .btn {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .dashboard.dark-mode .dash-card {
+      background: #333333;
+      color: #fff;
+    }
+
+    footer.dark-mode {
+      background-color: #222;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background-color: #003366; /* Navy blue background in light mode */
+      color: white; /* White text color */
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 9999; /* Ensures the button stays on top */
+      transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .toggle-btn {
+      background-color: #333; /* Dark grey background for button in dark mode */
+      color: white; /* White text for contrast */
+    }
+
+    .toggle-btn:hover {
+      background-color: #004c99; /* Slightly lighter navy blue for hover in light mode */
+    }
+
+    body.dark-mode .toggle-btn:hover {
+      background-color: #555; /* Lighter dark shade for hover in dark mode */
+    }
+
+    /* Mobile Popup */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 80%;
+      max-width: 400px;
+    }
+
+    .popup h2 {
+      margin: 0;
+      padding-bottom: 15px;
+    }
+
+    .popup p {
+      margin-bottom: 15px;
+    }
+
+    .close-btn {
+      padding: 10px 20px;
+      background-color: #003366;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background-color: #004c99;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-container">
+
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggleMode">Switch to Dark Mode</button>
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-logo-row">
+        <h1>Barkada Blog</h1>
+      </div>
+
+      <!-- NAVIGATION -->
+      <nav>
+        <ul>
+          <li><a href="index.html" id="homeBtn">Home</a></li>
+          <li><a href="about.html" id="aboutBtn">About Us</a></li>
+          <li><a href="gallery.html" id="galleryBtn">Pictures</a></li>
+          <li><a href="events.html" id="eventsBtn">Events</a></li>
+          <li><a href="contact.html" id="contactBtn">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <div class="intro-inner">
+        <h2>Welcome to our Barkada!</h2>
+        <p>We're a group of friends who love hanging out, making memories, and sharing laughter. Join us on our journey through friendship, fun events, and unforgettable experiences!</p>
+        <a href="about.html" class="btn">Learn More</a>
+      </div>
+
+      <!-- DASHBOARD -->
+      <section class="dashboard">
+        <h2>DASHBOARD</h2>
+
+        <div class="dash-grid">
+
+          <!-- About Us -->
+          <div class="dash-card" onclick="location.href='about.html'">
+            <h3>📚 About the Barkada</h3>
+            <p>Learn more about the group, our history, and what keeps us together.</p>
+          </div>
+
+          <!-- Pictures -->
+          <div class="dash-card" onclick="location.href='gallery.html'">
+            <h3>📸 Latest Photos</h3>
+            <p>Check out our personal photos and relive the fun memories we've shared together!</p>
+          </div>
+
+          <!-- Events -->
+          <div class="dash-card" onclick="location.href='events.html'">
+            <h3>🎉 Upcoming Events</h3>
+            <p>See what gatherings, trips, or parties are scheduled next.</p>
+          </div>
+
+          <!-- Contact -->
+          <div class="dash-card" onclick="location.href='contact.html'">
+            <h3>☎ Contact Details</h3>
+            <p>Need to reach someone? View our contact list in one tap.</p>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Barkada Blog | All Rights Reserved</p>
+    </footer>
+
+  </div>
+
+  <!-- Mobile Popup -->
+  <div class="popup" id="mobilePopup">
+    <div class="popup-content">
+      <h2>Welcome Mobile User!</h2>
+      <p>Thanks for visiting our site. We recommend using portrait mode for the best experience.</p>
+      <button class="close-btn" id="closePopup">Got it!</button>
+    </div>
+  </div>
+
+  <script>
+    const toggleButton = document.getElementById("toggleMode");
+    const body = document.body;
+    const header = document.querySelector("header");
+    const footer = document.querySelector("footer");
+    const introBtns = document.querySelectorAll(".intro-inner .btn");
+    const dashCards = document.querySelectorAll(".dash-card");
+    const navLinks = document.querySelectorAll("nav ul li a");
+    const mobilePopup = document.getElementById('mobilePopup');
+    const closePopupButton = document.getElementById('closePopup');
+
+    // Check localStorage for the user's theme preference
+    if (localStorage.getItem("darkMode") === "enabled") {
+      body.classList.add("dark-mode");
+      header.classList.add("dark-mode");
+      footer.classList.add("dark-mode");
+      introBtns.forEach(btn => btn.classList.add("dark-mode"));
+      dashCards.forEach(card => card.classList.add("dark-mode"));
+      toggleButton.textContent = "Switch to Light Mode";
+    }
+
+    // Show the popup if the user is on mobile
+    function isMobile() {
+      return /Mobi|Android/i.test(navigator.userAgent);
+    }
+
+    function showMobilePopup() {
+      if (isMobile()) {
+        mobilePopup.style.display = 'flex';
+      }
+    }
+
+    // Close the popup
+    function closePopup() {
+      mobilePopup.style.display = 'none';
+    }
+
+    // Show the mobile popup on page load
+    window.onload = function() {
+      showMobilePopup();
+    }
+
+    // Event listener for closing the popup
+    closePopupButton.addEventListener('click', closePopup);
+
+    // Mark active navigation link
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.forEach(l => l.classList.remove("active"));  // Remove active class from all links
+        link.classList.add("active");  // Add active class to the clicked link
+      });
+    });
+
+    toggleButton.onclick = () => {
+      body.classList.toggle("dark-mode");
+      header.classList.toggle("dark-mode");
+      footer.classList.toggle("dark-mode");
+      introBtns.forEach(btn => btn.classList.toggle("dark-mode"));
+      dashCards.forEach(card => card.classList.toggle("dark-mode"));
+      
+      if (body.classList.contains("dark-mode")) {
+        toggleButton.textContent = "Switch to Light Mode";
+        localStorage.setItem("darkMode", "enabled");
+      } else {
+        toggleButton.textContent = "Switch to Dark Mode";
+        localStorage.setItem("darkMode", "disabled");
+      }
+    };
+  </script>
+</body>
+</html>

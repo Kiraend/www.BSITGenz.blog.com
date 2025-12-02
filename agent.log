@@ -1,0 +1,54 @@
+nohup: ignoring input
+
+> barkada-agent-proxy@1.0.0 start
+> node server.js
+
+Agent proxy running on http://localhost:3000
+OpenAI error {
+  error: {
+    message: 'Incorrect API key provided: sk-test-*******lder. You can find your API key at https://platform.openai.com/account/api-keys.',
+    type: 'invalid_request_error',
+    code: 'invalid_api_key',
+    param: null
+  }
+}
+OpenAI error {
+  error: {
+    message: 'Incorrect API key provided: sk-test-*******lder. You can find your API key at https://platform.openai.com/account/api-keys.',
+    type: 'invalid_request_error',
+    code: 'invalid_api_key',
+    param: null
+  }
+}
+OpenAI error {
+  error: {
+    message: 'Incorrect API key provided: sk-test-*******lder. You can find your API key at https://platform.openai.com/account/api-keys.',
+    type: 'invalid_request_error',
+    code: 'invalid_api_key',
+    param: null
+  }
+}
+OpenAI error {
+  error: {
+    message: 'Incorrect API key provided: sk-test-*******lder. You can find your API key at https://platform.openai.com/account/api-keys.',
+    type: 'invalid_request_error',
+    code: 'invalid_api_key',
+    param: null
+  }
+}
+OpenAI error {
+  error: {
+    message: 'Incorrect API key provided: sk-test-*******lder. You can find your API key at https://platform.openai.com/account/api-keys.',
+    type: 'invalid_request_error',
+    code: 'invalid_api_key',
+    param: null
+  }
+}
+OpenAI error {
+  error: {
+    message: 'Incorrect API key provided: sk-test-*******lder. You can find your API key at https://platform.openai.com/account/api-keys.',
+    type: 'invalid_request_error',
+    code: 'invalid_api_key',
+    param: null
+  }
+}
