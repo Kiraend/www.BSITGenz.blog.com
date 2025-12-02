@@ -194,41 +194,36 @@
 
     <div class="upload-container">
       <button class="upload-btn" id="uploadBtn" onclick="document.getElementById('imageUpload').click()">Upload Photo</button>
-      <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+      <input type="file" id="imageUpload" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
     </div>
 
     <div class="gallery-grid" id="galleryGrid">
-
+      <!-- Existing gallery items -->
       <div class="gallery-item">
-        <img src="bYL9KyRN.jpeg" class="gallery-image">
+        <img src="bYL9KyRN.jpeg" class="gallery-image" alt="Image 1">
         <p contenteditable="true">Belio Sinangote</p>
         <button class="remove-btn">Remove</button>
       </div>
-
       <div class="gallery-item">
-        <img src="FuTd4ROT.jpeg" class="gallery-image">
+        <img src="FuTd4ROT.jpeg" class="gallery-image" alt="Image 2">
         <p contenteditable="true">Jaylou Garcia</p>
         <button class="remove-btn">Remove</button>
       </div>
-
       <div class="gallery-item">
-        <img src="R06o1HaW.jpeg" class="gallery-image">
+        <img src="R06o1HaW.jpeg" class="gallery-image" alt="Image 3">
         <p contenteditable="true">Grant Gabriel Mahilum</p>
         <button class="remove-btn">Remove</button>
       </div>
-
       <div class="gallery-item">
-        <img src="UxTMGeiU.jpeg" class="gallery-image">
+        <img src="UxTMGeiU.jpeg" class="gallery-image" alt="Image 4">
         <p contenteditable="true">John Lloid Tagalog</p>
         <button class="remove-btn">Remove</button>
       </div>
-
       <div class="gallery-item">
-        <img src="wKuxVimA.jpeg" class="gallery-image">
+        <img src="wKuxVimA.jpeg" class="gallery-image" alt="Image 5">
         <p contenteditable="true">James Lloyd Ruiz</p>
         <button class="remove-btn">Remove</button>
       </div>
-
     </div>
   </main>
 
@@ -244,7 +239,7 @@
   const header = document.querySelector("header");
   const footer = document.querySelector("footer");
   const uploadBtn = document.getElementById("uploadBtn");
-  const galleryItems = document.querySelectorAll(".gallery-item");
+  const galleryGrid = document.getElementById("galleryGrid");
 
   if (localStorage.getItem("darkMode") === "enabled") enableDarkMode();
 
@@ -255,10 +250,8 @@
   function enableDarkMode() {
     body.classList.add("dark-mode");
     header.classList.add("dark-mode");
-    nav.classList.add("dark-mode");
     footer.classList.add("dark-mode");
     uploadBtn.classList.add("dark-mode");
-    galleryItems.forEach(item => item.classList.add("dark-mode"));
     toggleBtn.textContent = "Switch to Light Mode";
     localStorage.setItem("darkMode", "enabled");
   }
@@ -266,18 +259,57 @@
   function disableDarkMode() {
     body.classList.remove("dark-mode");
     header.classList.remove("dark-mode");
-    nav.classList.remove("dark-mode");
     footer.classList.remove("dark-mode");
     uploadBtn.classList.remove("dark-mode");
-    galleryItems.forEach(item => item.classList.remove("dark-mode"));
     toggleBtn.textContent = "Switch to Dark Mode";
     localStorage.setItem("darkMode", "disabled");
   }
 
-  // Remove button
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const imgUrl = e.target.result;
+      
+      // Create a new gallery item with the uploaded image
+      const galleryItem = document.createElement('div');
+      galleryItem.classList.add('gallery-item');
+      
+      const img = document.createElement('img');
+      img.src = imgUrl;
+      img.classList.add('gallery-image');
+      img.alt = "Uploaded Image";
+
+      const caption = document.createElement('p');
+      caption.contentEditable = true;
+      caption.innerText = "New Image";
+
+      const removeBtn = document.createElement('button');
+      removeBtn.classList.add('remove-btn');
+      removeBtn.innerText = "Remove";
+      
+      // Add confirmation for removal
+      removeBtn.onclick = function() {
+        if (confirm("Are you sure you want to remove this image?")) {
+          galleryItem.remove();
+        }
+      };
+
+      galleryItem.appendChild(img);
+      galleryItem.appendChild(caption);
+      galleryItem.appendChild(removeBtn);
+      
+      galleryGrid.appendChild(galleryItem);
+    }
+
+    reader.readAsDataURL(file);
+  }
+
+  // Existing remove button functionality (for the pre-loaded images)
   document.querySelectorAll('.remove-btn').forEach(btn => {
     btn.addEventListener('click', e => {
-      if(confirm("Are you sure you want to remove this image?")) e.target.parentElement.remove();
+      if (confirm("Are you sure you want to remove this image?")) e.target.parentElement.remove();
     });
   });
 </script>
